@@ -4,6 +4,7 @@
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QPushButton>
+#include <QToolBar>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -26,6 +27,9 @@ MainWindow::MainWindow(QWidget *parent)
 
 
     central->setLayout(layout);
+
+    // Add Toolbar
+    setupToolbar();
 }
 
 
@@ -49,12 +53,23 @@ QVBoxLayout *MainWindow::createSessionLayout()
      * Sessions table
      *
      */
-    sessionsTableWidget = new QTableWidget(0, 3, this);
-    sessionsTableWidget->setHorizontalHeaderLabels({"Name", "Status", "Created At"});
+    sessionsTableWidget = new QTableWidget(0, 5, this);
+    sessionsTableWidget->setHorizontalHeaderLabels({"Name", "Status", "Profile", "Cloud Provider", "Created At"});
     sessionsTableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
     sessionLayout->addWidget(sessionsTableWidget);
 
     return sessionLayout;
+}
+
+void MainWindow::setupToolbar() {
+    QToolBar *toolbar = addToolBar("Master Toolbar");
+
+    // Profiles button
+    QAction *profilesAction = new QAction("Profiles", this);
+    profilesAction->setToolTip("Configure profiles to run OpenFOAM simulations");
+    toolbar->addAction(profilesAction);
+
+    // Quit button
 }
 

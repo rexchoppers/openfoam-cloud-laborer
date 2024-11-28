@@ -23,6 +23,8 @@ private:
     // Variables
     QTableWidget *sessionsTableWidget;
 
+    // Methods
     QVBoxLayout* createSessionLayout();
+    void setupToolbar();
 };
 #endif // MAINWINDOW_H
