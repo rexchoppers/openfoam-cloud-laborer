@@ -29,7 +29,7 @@ MainWindow::MainWindow(QWidget *parent)
     central->setLayout(layout);
 
     // Add Toolbar
-    setupToolbar();
+    setupMenuBar();
 }
 
 
@@ -62,14 +62,15 @@ QVBoxLayout *MainWindow::createSessionLayout()
     return sessionLayout;
 }
 
-void MainWindow::setupToolbar() {
-    QToolBar *toolbar = addToolBar("Master Toolbar");
+void MainWindow::setupMenuBar() {
+    QMenu *actionsMenu = menuBar()->addMenu("Actions");
 
     // Profiles button
     QAction *profilesAction = new QAction("Profiles", this);
     profilesAction->setToolTip("Configure profiles to run OpenFOAM simulations");
-    toolbar->addAction(profilesAction);
+    actionsMenu->addAction(profilesAction);
 
     // Quit button
+
 }
 

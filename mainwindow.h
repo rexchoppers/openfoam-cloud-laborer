@@ -25,6 +25,6 @@ private:
 
     // Methods
     QVBoxLayout* createSessionLayout();
-    void setupToolbar();
+    void setupMenuBar();
 };
 #endif // MAINWINDOW_H
