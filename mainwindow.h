@@ -3,6 +3,7 @@
 
 #include <QHBoxLayout>
 #include <QMainWindow>
+#include <QTableWidget>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -18,6 +19,9 @@ public:
 
 private:
     Ui::MainWindow *ui;
+
+    // Variables
+    QTableWidget *sessionsTableWidget;
 
     QVBoxLayout* createSessionLayout();
 };

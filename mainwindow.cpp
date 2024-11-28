@@ -2,6 +2,7 @@
 #include "./ui_mainwindow.h"
 
 #include <QHBoxLayout>
+#include <QLabel>
 #include <QPushButton>
 
 MainWindow::MainWindow(QWidget *parent)
@@ -13,10 +14,15 @@ MainWindow::MainWindow(QWidget *parent)
     // Get the central widget
     QWidget *central = centralWidget();
 
-    // Set the
+    // Set the main layout
     QHBoxLayout *layout = new QHBoxLayout;
 
+    // @TODO - Change
+    QVBoxLayout *leftLayout = new QVBoxLayout;
+
     // Add sessions layout
+    layout->addLayout(leftLayout);
+    layout->addLayout(createSessionLayout(), 2);
 
 
     central->setLayout(layout);
@@ -31,6 +37,24 @@ MainWindow::~MainWindow()
 
 QVBoxLayout *MainWindow::createSessionLayout()
 {
+    QVBoxLayout *sessionLayout = new QVBoxLayout;
 
+    QLabel *title = new QLabel("Sessions");
+
+    // Set layout title
+    sessionLayout->addWidget(title);
+
+    /**
+     *
+     * Sessions table
+     *
+     */
+    sessionsTableWidget = new QTableWidget(0, 3, this);
+    sessionsTableWidget->setHorizontalHeaderLabels({"Name", "Status", "Created At"});
+    sessionsTableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
+
+    sessionLayout->addWidget(sessionsTableWidget);
+
+    return sessionLayout;
 }
 
