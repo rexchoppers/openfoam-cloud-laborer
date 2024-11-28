@@ -5,6 +5,7 @@
 #include <QLabel>
 #include <QPushButton>
 #include <QToolBar>
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -69,8 +70,14 @@ void MainWindow::setupMenuBar() {
     QAction *profilesAction = new QAction("Profiles", this);
     profilesAction->setToolTip("Configure profiles to run OpenFOAM simulations");
     actionsMenu->addAction(profilesAction);
+}
 
-    // Quit button
-
+void MainWindow::exit() {
+    QMessageBox::StandardButton reply;
+    reply = QMessageBox::question(this, "Quit", "Are you sure you want to quit?",
+                                  QMessageBox::Yes | QMessageBox::No);
+    if (reply == QMessageBox::Yes) {
+        QApplication::quit();
+    }
 }
 
