@@ -6,6 +6,11 @@
 
 DatabaseHelper::DatabaseHelper(const QString &name): name(name) {}
 
+QList<DatabaseHelper::Migration> migrations = {
+    {"create_profiles_table", R"()"},
+    {"create_sessions_table", R"()"},
+};
+
 bool DatabaseHelper::init() {
     QSqlDatabase database = QSqlDatabase::addDatabase("QSQLITE");
     database.setDatabaseName(name);

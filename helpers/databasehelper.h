@@ -2,6 +2,7 @@
 #define DATABASEHELPER_H
 
 #include <QString>
+#include <QList>
 
 class DatabaseHelper
 {
@@ -12,8 +13,16 @@ public:
     bool applyMigration(const QString &migrationName, const QString &sql);
     bool applyAllMigrations(const QList<QPair<QString, QString>> &migrations);
 
+    struct Migration {
+        QString name;
+        QString sql;
+    };
+
 private:
     QString name;
+
+    QList<Migration> migrations;
+
     bool createMigrationTable();
 };
 
