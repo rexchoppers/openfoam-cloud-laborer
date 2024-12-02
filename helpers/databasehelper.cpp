@@ -7,7 +7,7 @@
 DatabaseHelper::DatabaseHelper(const QString &name): name(name) {}
 
 bool DatabaseHelper::init() {
-    QSqlDatabase database = QSqlDatabase::addDatabase("SQLITE");
+    QSqlDatabase database = QSqlDatabase::addDatabase("QSQLITE");
     database.setDatabaseName(name);
 
     if (!database.open()) {
@@ -15,6 +15,7 @@ bool DatabaseHelper::init() {
         return false;
     }
 
+    qDebug() << "Database file path:" << database.databaseName();
     qDebug() << "Database initialised";
 
     return createMigrationTable();

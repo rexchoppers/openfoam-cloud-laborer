@@ -1,5 +1,7 @@
 #include "mainwindow.h"
 #include "helpers/databasehelper.h"
+#include <QDir>
+
 
 #include <QApplication>
 
@@ -10,7 +12,10 @@ int main(int argc, char *argv[])
 
     w.setWindowTitle("OpenFoam Cloud Laborer");
 
-    DatabaseHelper databaseHelper = DatabaseHelper("openfoam-cloud-laborer");
+    qDebug() << "Current working directory:" << QDir::currentPath();
+
+
+    DatabaseHelper databaseHelper = DatabaseHelper("openfoam-cloud-laborer.db");
     databaseHelper.init();
 
 
