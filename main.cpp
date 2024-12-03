@@ -15,8 +15,13 @@ int main(int argc, char *argv[])
     qDebug() << "Current working directory:" << QDir::currentPath();
 
 
-    DatabaseHelper databaseHelper = DatabaseHelper("openfoam-cloud-laborer.db");
-    databaseHelper.init();
+    DatabaseHelper& dbHelper = DatabaseHelper::getInstance();
+
+    if (!dbHelper.init()) {
+        qDebug() << "Failed to init database";
+        return -1;
+    }
+
 
 
     w.show();

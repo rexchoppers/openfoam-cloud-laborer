@@ -19,7 +19,7 @@ public:
         QString sql;
     };
 
-    static QSqlDatabase& getInstance();
+    static DatabaseHelper& getInstance();
 
 private:
     QString name;

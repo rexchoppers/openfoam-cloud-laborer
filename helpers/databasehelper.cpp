@@ -23,10 +23,13 @@ bool DatabaseHelper::init() {
     qDebug() << "Database file path:" << database.databaseName();
     qDebug() << "Database initialised";
 
-    this->instance = database;
-
     return createMigrationTable();
 
+}
+
+DatabaseHelper& DatabaseHelper::getInstance() {
+    static DatabaseHelper instance("openfoam-cloud-laborer.db");
+    return instance;
 }
 
 bool DatabaseHelper::createMigrationTable() {
