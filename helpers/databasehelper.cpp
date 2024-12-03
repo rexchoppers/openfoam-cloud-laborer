@@ -23,6 +23,8 @@ bool DatabaseHelper::init() {
     qDebug() << "Database file path:" << database.databaseName();
     qDebug() << "Database initialised";
 
+    this->instance = database;
+
     return createMigrationTable();
 
 }
@@ -39,4 +41,8 @@ bool DatabaseHelper::createMigrationTable() {
     }
 
     return true;
+}
+
+bool DatabaseHelper::applyMigration(const QString &migrationName, const QString &sql) {
+    return false;
 }

@@ -3,6 +3,7 @@
 
 #include <QString>
 #include <QList>
+#include <QSqlDatabase>
 
 class DatabaseHelper
 {
@@ -18,9 +19,11 @@ public:
         QString sql;
     };
 
+    static QSqlDatabase& getInstance();
+
 private:
     QString name;
-
+    QSqlDatabase database;
     QList<Migration> migrations;
 
     bool createMigrationTable();
