@@ -12,7 +12,7 @@ QList<DatabaseHelper::Migration> migrations = {
 };
 
 bool DatabaseHelper::init() {
-    QSqlDatabase database = QSqlDatabase::addDatabase("QSQLITE");
+    database = QSqlDatabase::addDatabase("QSQLITE");
     database.setDatabaseName(name);
 
     if (!database.open()) {
@@ -33,7 +33,7 @@ DatabaseHelper& DatabaseHelper::getInstance() {
 }
 
 bool DatabaseHelper::createMigrationTable() {
-    QSqlQuery query;
+    QSqlQuery query(database);
     QString sql = R"(CREATE TABLE IF NOT EXISTS migrations (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT UNIQUE NOT NULL, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP))";
 
     qDebug() << "Running migrations script";
@@ -47,5 +47,16 @@ bool DatabaseHelper::createMigrationTable() {
 }
 
 bool DatabaseHelper::applyMigration(const QString &migrationName, const QString &sql) {
+    if (!database.isOpen()) {
+        if(!database.open()) {
+            qDebug() << "Error opening database for migrations: " << database.lastError().text();
+            return false;
+        }
+    }
+
+    QSqlQuery existingMigrationQuery(database);
+    existingMigrationQuery.prepare("SELECT COUNT(*) FROM migrations WHERE name ?");
+    existingMigrationQuery.addBindValue(migrationName);
+
     return false;
 }
