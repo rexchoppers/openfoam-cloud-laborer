@@ -6,8 +6,10 @@
 
 DatabaseHelper::DatabaseHelper(const QString &name): name(name) {}
 
-QList<DatabaseHelper::Migration> migrations = {
-    {"create_profiles_table", R"()"},
+const QList<DatabaseHelper::Migration> DatabaseHelper::migrations = {
+    {"create_profiles_table", R"(
+
+    )"},
     {"create_sessions_table", R"()"},
 };
 
@@ -56,11 +58,19 @@ bool DatabaseHelper::applyMigration(const QString &migrationName, const QString 
 
     // Check if query exists
     QSqlQuery existingMigrationQuery(database);
-    existingMigrationQuery.prepare("SELECT COUNT(*) FROM migrations WHERE name ?");
+    existingMigrationQuery.prepare("SELECT COUNT(*) FROM migrations WHERE name = ?");
     existingMigrationQuery.addBindValue(migrationName);
-    if (!existingMigrationQuery.exec() || (existingMigrationQuery.next() && existingMigrationQuery.value(0).toInt() > 0)) {
+
+    // Execute the query
+    if (!existingMigrationQuery.exec()) {
+        qDebug() << "Query failed:" << existingMigrationQuery.lastError().text();
+        return false; // Exit on query failure
+    }
+
+    // Check the result
+    if (existingMigrationQuery.next() && existingMigrationQuery.value(0).toInt() > 0) {
         qDebug() << "Migration" << migrationName << "already applied.";
-        return true;
+        return true; // Migration already exists
     }
 
     // Run the migration

@@ -22,7 +22,13 @@ int main(int argc, char *argv[])
         return -1;
     }
 
-
+    // Run all migrations
+    foreach (DatabaseHelper::Migration migration, DatabaseHelper::migrations) {
+        if (!dbHelper.applyMigration(migration.name, migration.sql)) {
+            qDebug() << "Failed to apply migration:" << migration.name;
+            return -1;
+        }
+    }
 
     w.show();
     return a.exec();

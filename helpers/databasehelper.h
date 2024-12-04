@@ -19,12 +19,13 @@ public:
         QString sql;
     };
 
+    static const QList<Migration> migrations;
+
     static DatabaseHelper& getInstance();
 
 private:
     QString name;
     QSqlDatabase database;
-    QList<Migration> migrations;
 
     bool createMigrationTable();
 };
