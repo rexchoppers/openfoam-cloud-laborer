@@ -39,7 +39,7 @@ bool DatabaseHelper::createMigrationTable() {
     qDebug() << "Running migrations script";
 
     if (!query.exec(sql)) {
-        qDebug() << "Error running migration SQL: " << query.lastError().text();
+        qDebug() << "Error running migration SQL:" << query.lastError().text();
         return false;
     }
 
@@ -49,14 +49,37 @@ bool DatabaseHelper::createMigrationTable() {
 bool DatabaseHelper::applyMigration(const QString &migrationName, const QString &sql) {
     if (!database.isOpen()) {
         if(!database.open()) {
-            qDebug() << "Error opening database for migrations: " << database.lastError().text();
+            qDebug() << "Error opening database for migrations:" << database.lastError().text();
             return false;
         }
     }
 
+    // Check if query exists
     QSqlQuery existingMigrationQuery(database);
     existingMigrationQuery.prepare("SELECT COUNT(*) FROM migrations WHERE name ?");
     existingMigrationQuery.addBindValue(migrationName);
+    if (!existingMigrationQuery.exec() || (existingMigrationQuery.next() && existingMigrationQuery.value(0).toInt() > 0)) {
+        qDebug() << "Migration" << migrationName << "already applied.";
+        return true;
+    }
 
-    return false;
+    // Run the migration
+    QSqlQuery migrationQuery(database);
+    if (!migrationQuery.exec(sql)) {
+        qDebug() << "Error running migration SQL:" << migrationQuery.lastError().text();
+        return false;
+    }
+
+    // Record the migration
+    QSqlQuery recordMigrationQuery(database);
+    recordMigrationQuery.prepare("INSERT INTO migrations (name) VALUES (?)");
+    recordMigrationQuery.addBindValue(migrationName);
+    if (!recordMigrationQuery.exec()) {
+        qDebug() << "Error recording migration:" << recordMigrationQuery.lastError().text();
+        return false;
+    }
+
+    qDebug() << "Migration" << migrationName << "applied successfully";
+
+    return true;
 }
