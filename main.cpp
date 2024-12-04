@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
     }
 
     // Run all migrations
-    foreach (DatabaseHelper::Migration migration, DatabaseHelper::migrations) {
+    for (const auto &migration : DatabaseHelper::migrations) {
         if (!dbHelper.applyMigration(migration.name, migration.sql)) {
             qDebug() << "Failed to apply migration:" << migration.name;
             return -1;
