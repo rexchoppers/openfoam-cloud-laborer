@@ -7,6 +7,14 @@
 DatabaseHelper::DatabaseHelper(const QString &name): name(name) {}
 
 const QList<DatabaseHelper::Migration> DatabaseHelper::migrations = {
+    {"create_cloud_providers_table", R"(
+        CREATE TABLE IF NOT EXISTS cloud_providers (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        );
+    )"},
     {"create_profiles_table", R"(
 
     )"},
