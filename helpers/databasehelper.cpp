@@ -16,7 +16,15 @@ const QList<DatabaseHelper::Migration> DatabaseHelper::migrations = {
         );
     )"},
     {"create_profiles_table", R"(
-
+        CREATE TABLE IF NOT EXISTS profiles (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL,
+            cloud_provider_id INTEGER NOT NULL,
+            data JSON,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            FOREIGN KEY (cloud_provider_id) REFERENCES cloud_providers (id) ON DELETE CASCADE
+        );
     )"},
     {"create_sessions_table", R"()"},
 };
