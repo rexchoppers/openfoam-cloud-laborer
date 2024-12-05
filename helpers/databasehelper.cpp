@@ -25,8 +25,8 @@ const QList<DatabaseHelper::Migration> DatabaseHelper::migrations = {
             updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             FOREIGN KEY (cloud_provider_id) REFERENCES cloud_providers (id) ON DELETE CASCADE
         );
-    )"},
-    {"create_sessions_table", R"()"},
+    )"}
+    // ,{"create_sessions_table", R"()"},
 };
 
 bool DatabaseHelper::init() {
