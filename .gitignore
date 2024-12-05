@@ -114,5 +114,6 @@ compile_commands.json
 *.cflags
 
 build
+.idea/
 
 # End of https://www.toptal.com/developers/gitignore/api/c++,qtcreator,qt
