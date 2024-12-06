@@ -1,3 +1,4 @@
+#include "helpers/seederhelper.h"
 #include "mainwindow.h"
 #include "helpers/databasehelper.h"
 #include <QDir>
@@ -30,6 +31,9 @@ int main(int argc, char *argv[])
         }
     }
 
+    // Run all seeders
+    SeederHelper seeder(dbHelper.getDatabaseInstance());
+    seeder.run();
 
 
     w.show();

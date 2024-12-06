@@ -22,6 +22,7 @@ public:
     static const QList<Migration> migrations;
 
     static DatabaseHelper& getInstance();
+    QSqlDatabase& getDatabaseInstance();
 
 private:
     QString name;
