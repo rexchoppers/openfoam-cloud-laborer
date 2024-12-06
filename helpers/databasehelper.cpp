@@ -50,6 +50,10 @@ DatabaseHelper& DatabaseHelper::getInstance() {
     return instance;
 }
 
+QSqlDatabase& DatabaseHelper::getDatabaseInstance() {
+    return database;
+}
+
 bool DatabaseHelper::createMigrationTable() {
     QSqlQuery query(database);
     QString sql = R"(CREATE TABLE IF NOT EXISTS migrations (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT UNIQUE NOT NULL, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP))";
