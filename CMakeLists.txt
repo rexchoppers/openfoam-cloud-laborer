@@ -26,7 +26,8 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         helpers/databasehelper.h
         helpers/databasehelper.cpp
         helpers/seederhelper.h helpers/seederhelper.cpp
-        viewprofiles.h viewprofiles.cpp viewprofiles.ui
+        modals/viewprofiles.h modals/viewprofiles.cpp modals/viewprofiles.ui
+
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET openfoam-cloud-laborer APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
