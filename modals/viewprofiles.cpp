@@ -1,9 +1,10 @@
 #include "viewprofiles.h"
-#include "ui_viewprofiles.h"
+#include "modals/ui_viewprofiles.h"
 
-ViewProfiles::ViewProfiles(QWidget *parent)
+ViewProfiles::ViewProfiles(QSqlDatabase &db, QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::ViewProfiles)
+    , database(db)
 {
     ui->setupUi(this);
 }

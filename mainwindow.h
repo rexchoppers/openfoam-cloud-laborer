@@ -3,6 +3,7 @@
 
 #include <QHBoxLayout>
 #include <QMainWindow>
+#include <QSqlDatabase>
 #include <QTableWidget>
 
 QT_BEGIN_NAMESPACE
@@ -14,14 +15,18 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
+    MainWindow(QSqlDatabase &db, QWidget *parent = nullptr);
     ~MainWindow();
+
+private slots:
+    void openProfiles();
 
 private:
     Ui::MainWindow *ui;
 
     // Variables
     QTableWidget *sessionsTableWidget;
+    QSqlDatabase &database;
 
     // Methods
     QVBoxLayout* createSessionLayout();

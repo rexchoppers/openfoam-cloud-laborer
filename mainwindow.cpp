@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
+#include "modals/viewprofiles.h"
 
 #include <QHBoxLayout>
 #include <QLabel>
@@ -7,9 +8,10 @@
 #include <QToolBar>
 #include <QMessageBox>
 
-MainWindow::MainWindow(QWidget *parent)
+MainWindow::MainWindow(QSqlDatabase &db, QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
+    , database(db)
 {
     ui->setupUi(this);
 
@@ -63,6 +65,11 @@ QVBoxLayout *MainWindow::createSessionLayout()
     return sessionLayout;
 }
 
+void MainWindow::openProfiles() {
+    ViewProfiles viewProfiles(database, this);
+    viewProfiles.exec();
+}
+
 void MainWindow::setupMenuBar() {
     QMenu *actionsMenu = menuBar()->addMenu("Actions");
 
@@ -70,6 +77,8 @@ void MainWindow::setupMenuBar() {
     QAction *profilesAction = new QAction("Profiles", this);
     profilesAction->setToolTip("Configure profiles to run OpenFOAM simulations");
     actionsMenu->addAction(profilesAction);
+
+    connect(profilesAction, &QAction::triggered, this, &MainWindow::openProfiles);
 }
 
 void MainWindow::exit() {

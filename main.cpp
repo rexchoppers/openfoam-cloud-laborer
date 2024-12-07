@@ -9,9 +9,6 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    MainWindow w;
-
-    w.setWindowTitle("OpenFoam Cloud Laborer");
 
     qDebug() << "Current working directory:" << QDir::currentPath();
 
@@ -34,6 +31,9 @@ int main(int argc, char *argv[])
     // Run all seeders
     SeederHelper seeder(dbHelper.getDatabaseInstance());
     seeder.run();
+
+    MainWindow w(dbHelper.getDatabaseInstance());
+    w.setWindowTitle("OpenFoam Cloud Laborer");
 
 
     w.show();
