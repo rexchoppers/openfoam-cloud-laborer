@@ -2,6 +2,7 @@
 #define VIEWPROFILES_H
 
 #include <QDialog>
+#include <QListWidget>
 #include <QSqlDatabase>
 
 namespace Ui {
@@ -19,6 +20,9 @@ public:
 private:
     Ui::ViewProfiles *ui;
     QSqlDatabase &database;
+
+    QListWidget *profilesListWidget;
+    void loadProfiles();
 };
 
 #endif // VIEWPROFILES_H

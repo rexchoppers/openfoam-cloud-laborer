@@ -67,6 +67,10 @@ QVBoxLayout *MainWindow::createSessionLayout()
 
 void MainWindow::openProfiles() {
     ViewProfiles viewProfiles(database, this);
+
+    viewProfiles.setWindowModality(Qt::ApplicationModal);
+    viewProfiles.setWindowFlags(Qt::Dialog | Qt::WindowCloseButtonHint | Qt::WindowTitleHint);
+
     viewProfiles.exec();
 }
 
